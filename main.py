@@ -23,7 +23,7 @@ def floorsheet():
 # Wait for the table to be present
 table_locator = (By.CSS_SELECTOR, "div.table-responsive")
 table = WebDriverWait(driver, 10).until(EC.presence_of_element_located(table_locator))
-# table_locator = (By.CSS_SELECTOR, "div.table-responsive")
+table_locator = (By.CSS_SELECTOR, "div.table-responsive")
 # Extract data from the table
 rows = table.find_elements(By.TAG_NAME, "tr")
 data = []
@@ -36,8 +36,8 @@ for row in rows:
     data.append(row_data)
 
 # Print each row of data
-for row_data in data:
-    print(row_data)
+for i in data:
+    print(i)
 
 driver.quit()
 
