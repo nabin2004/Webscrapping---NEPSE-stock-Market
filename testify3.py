@@ -23,32 +23,28 @@ def click_next_page():
         return False
     return True
 
-iteration = 0
-while True:
-    iteration += 1
-    if iteration > 2000:
-        print("Reached maximum number of iterations")
-        break
-    click_next_page()
 
+def extractor():
     # Wait for the table to be present
     table_locator = (By.CSS_SELECTOR, "div.table-responsive")
-    table = WebDriverWait(driver, 25).until(EC.presence_of_element_located(table_locator))
+    table = WebDriverWait(driver, 10).until(EC.presence_of_element_located(table_locator))
 
     # Extract data from the table
-    # rows = table.find_elements(By.TAG_NAME, "tr")
-    wait = WebDriverWait(driver, 15)
-    rows = wait.until(EC.presence_of_all_elements_located((By.TAG_NAME, "tr")))
+    rows = table.find_elements(By.TAG_NAME, "tr")
+    data = [['SN','Contract No.','Stock Symbol','Buyer','Seller','Quantity','Rate (Rs)','Amount (Rs)']]
+
+    for row in rows:
+        cells = row.find_elements(By.TAG_NAME, "td")
+        row_data = []
+        for cell in cells:
+            row_data.append(cell.text)
+        data.append(row_data)
 
     # Print each row of data
     print("==============================================")
-    for row in rows:
-        try:
-            cells = row.find_elements(By.TAG_NAME, "td")
-            row_data = [cell.text for cell in cells]
-            print(row_data)
-        except StaleElementReferenceException:
-            continue
+    for i in data:
+        print(i)
     print("==============================================")
 
-driver.quit()
+while True:
+    click_next_page()
