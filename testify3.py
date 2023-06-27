@@ -49,4 +49,4 @@ def extractor():
 extractor()
 while True:
     click_next_page()
-    extractor
+    extractor()
