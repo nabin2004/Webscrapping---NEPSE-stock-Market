@@ -46,5 +46,7 @@ def extractor():
         print(i)
     print("==============================================")
 
+extractor()
 while True:
     click_next_page()
+    extractor
